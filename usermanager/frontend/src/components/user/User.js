@@ -2,6 +2,8 @@ import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
+import AddUserForm from "./AddUserForm";
+
 import { getUsers, deleteUser } from "../../actions/users";
 
 class Users extends React.Component {
@@ -49,6 +51,7 @@ class Users extends React.Component {
             </tbody>
           </table>
         </div>
+        <AddUserForm />
       </Fragment>
     );
   }
