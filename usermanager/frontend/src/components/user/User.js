@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { getUsers } from "../../actions/users";
+import { getUsers, deleteUser } from "../../actions/users";
 
 class Users extends React.Component {
   static propTypes = {
@@ -14,7 +14,7 @@ class Users extends React.Component {
   }
 
   render() {
-    console.log("PROPS => ", this.props);
+    const { users, deleteUser } = this.props;
     return (
       <Fragment>
         <div className="outer-container">
@@ -30,19 +30,22 @@ class Users extends React.Component {
               </tr>
             </thead>
             <tbody>
-              <tr className="priority-200">
-                <td className="name">TESmart KVM Switch HDMI Device</td>
-                <td className="clicks">857</td>
-                <td className="priority">
-                  <i className="fas fa-circle"></i> 200
-                </td>
-                <td className="impressions">190</td>
-                <td className="delete">
-                  <button className="delete-btn">
-                    <i className="fas fa-trash-alt" title="delete row"></i>
-                  </button>
-                </td>
-              </tr>
+              {users.map((user) => (
+                <tr className="priority-200" key={user.id}>
+                  <td className="name">{user.id}</td>
+                  <td className="clicks">{user.name}</td>
+                  <td className="priority">{user.email}</td>
+                  <td className="impressions">{user.message}</td>
+                  <td className="delete">
+                    <button
+                      className="delete-btn"
+                      onClick={deleteUser.bind(this, user.id)}
+                    >
+                      <i className="fas fa-trash-alt" title="delete row"></i>
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -56,4 +59,4 @@ const mapStateToProps = (state) => {
     users: state.users.users,
   };
 };
-export default connect(mapStateToProps, { getUsers })(Users);
+export default connect(mapStateToProps, { getUsers, deleteUser })(Users);
