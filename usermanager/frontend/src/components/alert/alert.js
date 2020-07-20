@@ -1,14 +1,22 @@
-import React from "react";
+import React, { Fragment } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { withAlert } from "react-alert";
 
-const App = ({ alert }) => (
-  <button
-    onClick={() => {
-      alert.show("Oh look, an alert!");
-    }}
-  >
-    Show Alert
-  </button>
-);
+class Alerts extends React.Component {
+  componentDidUpdate() {
+    console.log(this.props);
+  }
+  render() {
+    return <Fragment />;
+  }
+}
 
-export default withAlert()(App);
+const mapStateToProps = (state) => {
+  return {
+    error: state.errors,
+    message: state.messages,
+  };
+};
+
+export default connect(mapStateToProps)(withAlert()(Alerts));
