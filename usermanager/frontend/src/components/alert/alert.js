@@ -4,8 +4,15 @@ import PropTypes from "prop-types";
 import { withAlert } from "react-alert";
 
 class Alerts extends React.Component {
+  static propTypes = {
+    error: PropTypes.object.isRequired,
+    message: PropTypes.object.isRequired,
+  };
   componentDidUpdate() {
-    console.log(this.props);
+    console.log("Alert props => ", this.props);
+    // const { error, alert, message } = this.props;
+    // console.log(" componentDidUpdate ", error, alert, message);
+    // console.log("Test = ", message.msg);
   }
   render() {
     return <Fragment />;
