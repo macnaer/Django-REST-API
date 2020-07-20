@@ -20,7 +20,6 @@ export const deleteUser = (id) => (dispatch) => {
   axios
     .delete(`/api/users/${id}`)
     .then((res) => {
-      console.log("deleteUser axios result => ", res);
       dispatch({
         type: DELETE_USER,
         payload: id,
@@ -41,6 +40,6 @@ export const addUser = (user) => (dispatch) => {
       });
     })
     .catch((err) =>
-      dispatch(returnErrors(err.response.data.status, err.response.status))
+      dispatch(returnErrors(err.response.data, err.response.status))
     );
 };

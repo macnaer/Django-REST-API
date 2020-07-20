@@ -8,22 +8,37 @@ class Alerts extends React.Component {
     error: PropTypes.object.isRequired,
     message: PropTypes.object.isRequired,
   };
-  componentDidUpdate() {
-    console.log("Alert props => ", this.props);
-    // const { error, alert, message } = this.props;
-    // console.log(" componentDidUpdate ", error, alert, message);
-    // console.log("Test = ", message.msg);
+  componentDidUpdate(prevProps) {
+    const { error, alert, message } = this.props;
+    console.log("Test = ", error.msg.email);
+    if (error !== prevProps.error) {
+      if (error.msg.name) {
+        alert.error(`Name: ${error.msg.name.join()}`);
+      }
+      if (error.msg.email) {
+        alert.error(`Email: ${error.msg.email.join()}`);
+      }
+      if (error.msg.message) {
+        alert.error(`Message: ${error.msg.message.join()}`);
+      }
+      if (error.msg.non_field_errors) {
+        alert.error(`Empty fields: ${error.msg.non_field_errors.join()}`);
+      }
+    }
+    if (message !== prevProps.message) {
+      if (message.addUser) {
+        alert.success(message.addUser);
+      }
+    }
   }
   render() {
     return <Fragment />;
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    error: state.errors,
-    message: state.messages,
-  };
-};
+const mapStateToProps = (state) => ({
+  error: state.errors,
+  message: state.messages,
+});
 
 export default connect(mapStateToProps)(withAlert()(Alerts));
